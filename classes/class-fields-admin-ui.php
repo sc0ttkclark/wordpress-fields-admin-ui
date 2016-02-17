@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Fields_Admin_UI
  */
@@ -139,6 +138,13 @@ class Fields_Admin_UI {
 					'choices'     => $control_type_choices,
 					'field'       => array(), // Auto create associated field
 				),
+				array(
+					'id'          => 'fields_api_control_desc',
+					'label'       => __( 'Control Description', 'fields-admin-ui' ),
+					'description' => __( 'This description shows next to the control, just like *this* description is.', 'fields-admin-ui' ),
+					'type'        => 'textarea',
+					'field'       => array(), // Auto create associated field
+				),
 			),
 		);
 
@@ -197,9 +203,15 @@ class Fields_Admin_UI {
 			}
 
 			$section_config = array(
-				'form'  => $form,
-				'label' => $section->post_title,
+				'form'        => $form,
+				'label'       => $section->post_title,
 			);
+
+			$section_desc = get_post_meta( $section->ID, 'fields_api_section_desc', true );
+
+			if ( ! empty( $section_desc ) ) {
+				$section_config['description'] = $section_desc;
+			}
 
 			$wp_fields->add_section( $object_type, $section_id, $object_name, $section_config );
 
@@ -234,6 +246,12 @@ class Fields_Admin_UI {
 
 				if ( ! empty( $control_type ) && isset( $fields_api_control_types[ $control_type ] ) ) {
 					$control_config['type'] = $control_type;
+				}
+
+				$control_desc = get_post_meta( $control->ID, 'fields_api_control_desc', true );
+
+				if ( ! empty( $control_desc ) ) {
+					$control_config['description'] = $control_desc;
 				}
 
 				$wp_fields->add_control( $object_type, $control_id, $object_name, $control_config );
