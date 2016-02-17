@@ -15,4 +15,4 @@ A proof of concept Administration UI for the WP Fields API https://github.com/sc
 
 ### Manage Controls
 
-![Manage Controls](http://sc0tt.me/2w2i1H3R1d1j/Screen%20Shot%202016-02-17%20at%201.51.59%20AM.png)
+![Manage Controls](http://sc0tt.me/1m0I0E3G0J2O/Screen%20Shot%202016-02-17%20at%203.22.40%20AM.png)
