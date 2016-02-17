@@ -203,8 +203,8 @@ class Fields_Admin_UI {
 			}
 
 			$section_config = array(
-				'form'        => $form,
-				'label'       => $section->post_title,
+				'form'  => $form,
+				'label' => $section->post_title,
 			);
 
 			$section_desc = get_post_meta( $section->ID, 'fields_api_section_desc', true );
@@ -212,8 +212,6 @@ class Fields_Admin_UI {
 			if ( ! empty( $section_desc ) ) {
 				$section_config['description'] = $section_desc;
 			}
-
-			$wp_fields->add_section( $object_type, $section_id, $object_name, $section_config );
 
 			// Get controls for section
 			$args = array(
@@ -229,32 +227,37 @@ class Fields_Admin_UI {
 
 			$controls = get_posts( $args );
 
-			foreach ( $controls as $control ) {
-				// Control config
-				$control_id = get_post_meta( $control->ID, 'fields_api_control_id', true );
+			if ( ! empty( $controls ) ) {
+				$wp_fields->add_section( $object_type, $section_id, $object_name, $section_config );
 
-				if ( empty( $control_id ) ) {
-					$control_id = sanitize_key( $section->post_name . '_' . $control->post_name );
+				foreach ( $controls as $control ) {
+					// Control config
+					$control_id = get_post_meta( $control->ID, 'fields_api_control_id', true );
+
+					if ( empty( $control_id ) ) {
+						$control_id = sanitize_key( $section->post_name . '_' . $control->post_name );
+					}
+
+					$control_config = array(
+						'section' => $section_id,
+						'label'   => $control->post_title,
+						'field'   => array(), // Auto create associated field
+					);
+
+					$control_type = get_post_meta( $control->ID, 'fields_api_control_type', true );
+
+					if ( ! empty( $control_type ) && isset( $fields_api_control_types[ $control_type ] ) ) {
+						$control_config['type'] = $control_type;
+					}
+
+					$control_desc = get_post_meta( $control->ID, 'fields_api_control_desc', true );
+
+					if ( ! empty( $control_desc ) ) {
+						$control_config['description'] = $control_desc;
+					}
+
+					$wp_fields->add_control( $object_type, $control_id, $object_name, $control_config );
 				}
-
-				$control_config = array(
-					'section' => $section_id,
-					'label'   => $control->post_title,
-				);
-
-				$control_type = get_post_meta( $control->ID, 'fields_api_control_type', true );
-
-				if ( ! empty( $control_type ) && isset( $fields_api_control_types[ $control_type ] ) ) {
-					$control_config['type'] = $control_type;
-				}
-
-				$control_desc = get_post_meta( $control->ID, 'fields_api_control_desc', true );
-
-				if ( ! empty( $control_desc ) ) {
-					$control_config['description'] = $control_desc;
-				}
-
-				$wp_fields->add_control( $object_type, $control_id, $object_name, $control_config );
 			}
 		}
 
