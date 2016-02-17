@@ -5,12 +5,7 @@ A proof of concept Administration UI for the WP Fields API https://github.com/sc
 ## Requirements
 
 * Must have WP Fields API (https://github.com/sc0ttkclark/wordpress-fields-api)
-* Temporary: Must have latest `feature/post-editor` branch of WP Fields API
-
-## What's left
-
-* Fields API doesn't have saving for the post editor yet, working on finishing that
-* There is no dropdown-posts control yet, working on adding that to the Fields API itself, so currently the Control Section is a text field, enter the associated Post ID until fixed
+* Temporary: Must be using the latest `develop` branch of WP Fields API
 
 ## Screenshots
 
