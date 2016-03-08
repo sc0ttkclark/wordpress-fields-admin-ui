@@ -3,7 +3,7 @@
  * Plugin Name: Fields Admin UI
  * Plugin URI: https://github.com/sc0ttkclark/wordpress-fields-ui
  * Description: An Administrative UI for the WordPress Fields API, which lets you add new sections and fields to the currently supported Fields API forms
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Scott Kingsley Clark
  * Author URI: http://scottkclark.com/
  * License: GPL2+
